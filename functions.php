@@ -2154,23 +2154,6 @@ function check_myisam_support()
     return false;
 }
 
-/**
- * 检查数据库是否支持MyISAM引擎
- */
-function check_myisam_support()
-{
-    global $wpdb;
-    $results = $wpdb->get_results("SHOW ENGINES");
-    if (!$results)
-        return false;
-    foreach ($results as $result) {
-        if ($result->Engine == "MyISAM") {
-            return $result->Support == "YES";
-        }
-    }
-    return false;
-}
-
 /*
  * 随机图
  * 暂移除, 在20个月前功能已被移除，该表应该不存在了。
