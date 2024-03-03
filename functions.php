@@ -2154,6 +2154,23 @@ function check_myisam_support()
     return false;
 }
 
+/**
+ * 检查数据库是否支持MyISAM引擎
+ */
+function check_myisam_support()
+{
+    global $wpdb;
+    $results = $wpdb->get_results("SHOW ENGINES");
+    if (!$results)
+        return false;
+    foreach ($results as $result) {
+        if ($result->Engine == "MyISAM") {
+            return $result->Support == "YES";
+        }
+    }
+    return false;
+}
+
 /*
  * 随机图
  * 暂移除, 在20个月前功能已被移除，该表应该不存在了。
@@ -2167,12 +2184,11 @@ function create_sakura_table()
     }
     $sakura_table_name = $wpdb->base_prefix . 'sakurairo';
     require_once ABSPATH . "wp-admin/includes/upgrade.php";
-    /// TODO: 移除?
     dbDelta("CREATE TABLE IF NOT EXISTS `" . $sakura_table_name . "` (
         `mate_key` varchar(50) COLLATE utf8_bin NOT NULL,
         `mate_value` text COLLATE utf8_bin NOT NULL,
         PRIMARY KEY (`mate_key`)
-        ) " . (check_myisam_support() ? "ENGINE=MyISAM " : "") . "DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;");
+        ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;");
     //default data
     if (!$wpdb->get_var("SELECT COUNT(*) FROM $sakura_table_name WHERE mate_key = 'manifest_json'")) {
         $manifest = array(
@@ -2187,7 +2203,7 @@ function create_sakura_table()
             "mate_value" => file_get_contents(get_template_directory() . "/manifest/manifest_mobile.json"),
         );
         $wpdb->insert($sakura_table_name, $mobile_manifest);
-
+        
     }
     if (!$wpdb->get_var("SELECT COUNT(*) FROM $sakura_table_name WHERE mate_key = 'json_time'")) {
         $time = array(

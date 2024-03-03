@@ -532,13 +532,19 @@ background-color: rgba(255, 255, 255,<?=iro_opt('reception_background_transparen
 <?php if (iro_opt('reception_background_blur', 'false')): ?> -webkit-backdrop-filter: blur(10px); <?php endif; ?>
 }
 
+<?php $signature = iro_opt('personal_signature');?>
+
+.focusinfo .header-tou .signature {
+    font-family: '<?php echo $signature['font']; ?>';
+    <?php echo $signature['customization']; ?>
+}
+
 /*首页圆角设置*/
 .header-info,.header-shuo{
 border-radius: <?=iro_opt('signature_radius'); ?>px;
 grid-row: 1;
 grid-column: 1;
 }
-
 
 .focusinfo img{
 border-radius: <?=iro_opt('social_area_radius'); ?>px;
@@ -1108,12 +1114,20 @@ if(iro_opt('cover_half_screen_curve',true)){
     content: '';
     width: 150%;
     height: 4.375rem;
-    background: #fff;
+    background-color: rgba(255, 255, 255,<?=iro_opt('reception_background_transparency'); ?>);
+<?php if (iro_opt('reception_background_blur', 'false')): ?> backdrop-filter: blur(10px); <?php endif; ?>
+<?php if (iro_opt('reception_background_blur', 'false')): ?> -webkit-backdrop-filter: blur(10px); <?php endif; ?>
     left: -25%;
     bottom: -2.875rem;
     border-radius: 100%;
     position: absolute;
     z-index: 4;
+}
+   .headertop{
+    border-radius:0 !important;
+}
+   .wrapper{
+    border-top:0 !important;
 }
    <?php
 }
@@ -1154,6 +1168,9 @@ background-image: url(<?=iro_opt('vision_resource_basepath', 'https://s.nmxc.ltd
 }
 #banner_wave_2 {
     background: url(<?=iro_opt('vision_resource_basepath', 'https://s.nmxc.ltd/sakurairo_vision/@2.6/')?>basic/wave2.png) repeat-x;
+}
+.headertop{
+    border-radius:0 !important;
 }
 <?php endif; ?>
 
