@@ -2015,7 +2015,7 @@ function change_avatar($avatar)
         $encrypted = openssl_encrypt($qq_number, 'aes-128-cbc', $sakura_privkey, 0, $iv);
 
         $encrypted = urlencode(base64_encode($encrypted));
-        return '<img src="' . rest_url("sakura/v1/qqinfo/avatar") . '?qq=' . $encrypted . '" class="lazyload avatar avatar-24 photo" alt="😀" width="24" height="24" onerror="imgError(this,1)">';
+        return '<img src="' . rest_url("sakura/v1/qqinf/avatar") . '?qq=' . $encrypted . '" class="lazyload avatar avatar-24 photo" alt="😀" width="24" height="24" onerror="imgError(this,1)">';
 
     }
     return $avatar;
@@ -2208,7 +2208,8 @@ function create_sakura_table()
     if (iro_opt('random_graphs_mts')) {
         $sakura_mobile_image_array = $wpdb->get_var("SELECT `mate_value` FROM  $sakura_table_name WHERE `mate_key`='mobile_manifest_json'");
     }
-    $sakura_privkey = $wpdb->get_var("SELECT `mate_value` FROM  $sakura_table_name WHERE `mate_key`='privkey'");
+        $sakura_privkey = $wpdb->get_var("SELECT `mate_value` FROM  $sakura_table_name WHERE `mate_key`='privkey'");
+        echo "<script>console.log('" . json_encode($sakura_privkey) . "');</script>";
 }
 add_action('after_setup_theme', 'create_sakura_table');
 
