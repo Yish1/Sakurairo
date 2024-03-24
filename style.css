@@ -5266,6 +5266,7 @@ canvas,
 video {
   display: inline-block;
   vertical-align: baseline;
+  z-index: -1;
 }
 
 audio:not([controls]) {
