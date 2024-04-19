@@ -35,27 +35,24 @@ $vision_resource_basepath = iro_opt('vision_resource_basepath');
     <link rel="stylesheet" href="<?= $vision_resource_basepath ?>fontawesome/css/all.min.css" type="text/css" media="all"/>
 	<?php
 	if (iro_opt('iro_meta') == true) {
-		$keywords = '';
-		$description = '';
+		$keywords = iro_opt('iro_meta_keywords');
+        $description = iro_opt('iro_meta_description');
 		if (is_singular()) {
-			$keywords = '';
 			$tags = get_the_tags();
-			$categories = get_the_category();
-			if ($tags) {
-				foreach ($tags as $tag) {
-					$keywords .= $tag->name . ',';
-				};
-			};
+            if ($tags) {
+                $keywords = implode(',', array_column($tags, 'name'));
+            }     
+            if (!empty($post->post_content)) {
+                $description = trim(mb_strimwidth(preg_replace('/\s+/', ' ', strip_tags($post->post_content)), 0, 240, '…'));
+            }
+		}
+		if (is_category()) {
+		    $categories = get_the_category();
 			if ($categories) {
-				foreach ($categories as $category) {
-					$keywords .= $category->name . ',';
-				};
-			};
-			$description = mb_strimwidth(str_replace("\r\n", '', strip_tags($post->post_content)), 0, 240, '…');
-		} else {
-			$keywords = iro_opt('iro_meta_keywords');
-			$description = iro_opt('iro_meta_description');
-		};
+                $keywords = implode(',', array_column($categories, 'name'));
+            }
+            $description = trim(category_description()) ?: $description;
+		}
 	?>
 		<meta name="description" content="<?php echo $description; ?>" />
 		<meta name="keywords" content="<?php echo $keywords; ?>" />
@@ -74,7 +71,7 @@ $vision_resource_basepath = iro_opt('vision_resource_basepath');
 	}
 	?>
 	<?php wp_head(); ?>
-	<link rel="stylesheet" href="https://<?php echo iro_opt('gfonts_api', 'fonts.loli.net'); ?>/css?family=Noto+Serif|Noto+Serif+SC|Noto+Sans+SC|Dela+Gothic+One|Fira+Code<?php echo iro_opt('gfonts_add_name'); ?>&display=swap" media="all">
+	<link rel="stylesheet" href="https://<?php echo iro_opt('gfonts_api', 'fonts.googleapis.com'); ?>/css?family=Noto+Serif|Noto+Serif+SC|Noto+Sans+SC|Dela+Gothic+One|Fira+Code<?php echo iro_opt('gfonts_add_name'); ?>&display=swap" media="all">
 	<script type="text/javascript">
 		if (!!window.ActiveXObject || "ActiveXObject" in window) { //is IE?
 			alert('朋友，IE浏览器未适配哦~\n如果是 360、QQ 等双核浏览器，请关闭 IE 模式！');
