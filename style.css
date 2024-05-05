@@ -2552,7 +2552,7 @@ h1.main-title {
   padding: 0;
   background-position: top center;
   background-repeat: no-repeat;
-  background-attachment: scroll;
+  background-attachment: fixed;
   background-size: cover;
   z-index: -1;
 }
@@ -8279,14 +8279,14 @@ body.dark .post-list-thumb:hover {
 
 @supports (-webkit-touch-callout: none) {
   #centerbg {
-    background-attachment: scroll !important;
+    background-attachment: fixed !important;
   }
 }
 
 @media (max-width:860px) {
   #centerbg {
     height: 300px;
-    background-attachment: scroll;
+    background-attachment: fixed;
   }
 
   #video-container,
