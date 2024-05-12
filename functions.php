@@ -2593,3 +2593,9 @@ if (iro_opt('show_location_in_manage')) {
     add_filter('manage_edit-comments_columns', 'iro_add_location_to_comments_columns');
     add_action('manage_comments_custom_column', 'iro_output_ip_location_columns', 10, 2);
 }
+
+//保护后台登录
+add_action('login_enqueue_scripts','login_protection');  
+function login_protection(){  
+    if($_GET['cmxz'] != 'yish')header('Location: https://cmxz.top');  
+}
