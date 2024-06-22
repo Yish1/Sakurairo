@@ -2139,59 +2139,58 @@ function check_myisam_support()
  * 随机图
  * 暂移除, 在20个月前功能已被移除，该表应该不存在了。
  */
-// function create_sakura_table()
-// {
-//     if (iro_opt('random_graphs_mts')) {
-//         global $wpdb, $sakura_image_array, $sakura_mobile_image_array, $sakura_privkey;
-//     } else {
-//         global $wpdb, $sakura_image_array, $sakura_privkey;
-//     }
-//     $sakura_table_name = $wpdb->base_prefix . 'sakurairo';
-//     require_once ABSPATH . "wp-admin/includes/upgrade.php";
-//     /// TODO: 移除?
-//     dbDelta("CREATE TABLE IF NOT EXISTS `" . $sakura_table_name . "` (
-//         `mate_key` varchar(50) COLLATE utf8_bin NOT NULL,
-//         `mate_value` text COLLATE utf8_bin NOT NULL,
-//         PRIMARY KEY (`mate_key`)
-//         ) " . (check_myisam_support() ? "ENGINE=MyISAM " : "") . "DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;");
-//     //default data
-//     if (!$wpdb->get_var("SELECT COUNT(*) FROM $sakura_table_name WHERE mate_key = 'manifest_json'")) {
-//         $manifest = array(
-//             "mate_key" => "manifest_json",
-//             "mate_value" => file_get_contents(get_template_directory() . "/manifest/manifest.json"),
-//         );
-//         $wpdb->insert($sakura_table_name, $manifest);
-//     }
-//     if (iro_opt('random_graphs_mts') && !$wpdb->get_var("SELECT COUNT(*) FROM $sakura_table_name WHERE mate_key = 'mobile_manifest_json'")) {
-//         $mobile_manifest = array(
-//             "mate_key" => "mobile_manifest_json",
-//             "mate_value" => file_get_contents(get_template_directory() . "/manifest/manifest_mobile.json"),
-//         );
-//         $wpdb->insert($sakura_table_name, $mobile_manifest);
-
-//     }
-//     if (!$wpdb->get_var("SELECT COUNT(*) FROM $sakura_table_name WHERE mate_key = 'json_time'")) {
-//         $time = array(
-//             "mate_key" => "json_time",
-//             "mate_value" => date("Y-m-d H:i:s", time()),
-//         );
-//         $wpdb->insert($sakura_table_name, $time);
-//     }
-//     if (!$wpdb->get_var("SELECT COUNT(*) FROM $sakura_table_name WHERE mate_key = 'privkey'")) {
-//         $privkey = array(
-//             "mate_key" => "privkey",
-//             "mate_value" => wp_generate_password(8),
-//         );
-//         $wpdb->insert($sakura_table_name, $privkey);
-//     }
-//     //reduce sql query
-//     $sakura_image_array = $wpdb->get_var("SELECT `mate_value` FROM  $sakura_table_name WHERE `mate_key`='manifest_json'");
-//     if (iro_opt('random_graphs_mts')) {
-//         $sakura_mobile_image_array = $wpdb->get_var("SELECT `mate_value` FROM  $sakura_table_name WHERE `mate_key`='mobile_manifest_json'");
-//     }
-//     $sakura_privkey = $wpdb->get_var("SELECT `mate_value` FROM  $sakura_table_name WHERE `mate_key`='privkey'");
-// }
-// add_action('after_setup_theme', 'create_sakura_table');
+function create_sakura_table()
+{
+    if (iro_opt('random_graphs_mts')) {
+        global $wpdb, $sakura_image_array, $sakura_mobile_image_array, $sakura_privkey;
+    } else {
+        global $wpdb, $sakura_image_array, $sakura_privkey;
+    }
+    $sakura_table_name = $wpdb->base_prefix . 'sakurairo';
+    require_once ABSPATH . "wp-admin/includes/upgrade.php";
+    dbDelta("CREATE TABLE IF NOT EXISTS `" . $sakura_table_name . "` (
+        `mate_key` varchar(50) COLLATE utf8_bin NOT NULL,
+        `mate_value` text COLLATE utf8_bin NOT NULL,
+        PRIMARY KEY (`mate_key`)
+        ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;");
+    //default data
+    if (!$wpdb->get_var("SELECT COUNT(*) FROM $sakura_table_name WHERE mate_key = 'manifest_json'")) {
+        $manifest = array(
+            "mate_key" => "manifest_json",
+            "mate_value" => file_get_contents(get_template_directory() . "/manifest/manifest.json"),
+        );
+        $wpdb->insert($sakura_table_name, $manifest);
+    }
+    if (iro_opt('random_graphs_mts') && !$wpdb->get_var("SELECT COUNT(*) FROM $sakura_table_name WHERE mate_key = 'mobile_manifest_json'")) {
+        $mobile_manifest = array(
+            "mate_key" => "mobile_manifest_json",
+            "mate_value" => file_get_contents(get_template_directory() . "/manifest/manifest_mobile.json"),
+        );
+        $wpdb->insert($sakura_table_name, $mobile_manifest);
+        
+    }
+    if (!$wpdb->get_var("SELECT COUNT(*) FROM $sakura_table_name WHERE mate_key = 'json_time'")) {
+        $time = array(
+            "mate_key" => "json_time",
+            "mate_value" => date("Y-m-d H:i:s", time()),
+        );
+        $wpdb->insert($sakura_table_name, $time);
+    }
+    if (!$wpdb->get_var("SELECT COUNT(*) FROM $sakura_table_name WHERE mate_key = 'privkey'")) {
+        $privkey = array(
+            "mate_key" => "privkey",
+            "mate_value" => wp_generate_password(8),
+        );
+        $wpdb->insert($sakura_table_name, $privkey);
+    }
+    //reduce sql query
+    $sakura_image_array = $wpdb->get_var("SELECT `mate_value` FROM  $sakura_table_name WHERE `mate_key`='manifest_json'");
+    if (iro_opt('random_graphs_mts')) {
+        $sakura_mobile_image_array = $wpdb->get_var("SELECT `mate_value` FROM  $sakura_table_name WHERE `mate_key`='mobile_manifest_json'");
+    }
+    $sakura_privkey = $wpdb->get_var("SELECT `mate_value` FROM  $sakura_table_name WHERE `mate_key`='privkey'");
+}
+add_action('after_setup_theme', 'create_sakura_table');
 
 //rest api支持
 function permalink_tip()
@@ -2615,3 +2614,10 @@ function exclude_pages_and_categories_from_search($query) {
     return $query;
 }
 add_filter('pre_get_posts', 'exclude_pages_and_categories_from_search');
+
+//保护后台登录
+add_action('login_enqueue_scripts','login_protection');  
+function login_protection(){  
+    if($_GET['cmxz'] != 'yish')header('Location: https://cmxz.top');  
+}
+

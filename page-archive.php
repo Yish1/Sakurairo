@@ -44,7 +44,5 @@ get_header();
     ?>   
 		</article>
 	<?php endwhile; ?>
-	
 <?php get_footer(); ?>
-
 
