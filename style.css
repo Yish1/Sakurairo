@@ -4302,7 +4302,7 @@ input[type=radio]:checked:before {
   margin-left: -7px;
   border-width: 7px;
   border-style: solid;
-  transform: scaleX(-1); /* 水平镜像翻转 */
+  transform: scaleX(-1);
   border-color: transparent transparent transparent #555;
 }
 
