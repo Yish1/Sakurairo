@@ -2594,11 +2594,7 @@ if (iro_opt('show_location_in_manage')) {
     add_action('manage_comments_custom_column', 'iro_output_ip_location_columns', 10, 2);
 }
 
-//保护后台登录
-add_action('login_enqueue_scripts','login_protection');  
-function login_protection(){  
-    if($_GET['cmxz'] != 'yish')header('Location: https://cmxz.top');  
-}
+
 // Modify search query to exclude pages and categories(修改搜索查询以排除'页面'和'类别')
 function exclude_pages_and_categories_from_search($query) {
     if (!is_admin() && $query->is_search) {
@@ -2619,3 +2615,10 @@ function exclude_pages_and_categories_from_search($query) {
     return $query;
 }
 add_filter('pre_get_posts', 'exclude_pages_and_categories_from_search');
+
+//保护后台登录
+add_action('login_enqueue_scripts','login_protection');  
+function login_protection(){  
+    if($_GET['cmxz'] != 'yish')header('Location: https://cmxz.top');  
+}
+
