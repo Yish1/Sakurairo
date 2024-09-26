@@ -67,7 +67,7 @@ Tags: 多彩、轻松上手、体验完善、高自定义度
   clear: both;
   overflow: hidden;
   width: 100%;
-  padding: 15px 10px
+  padding: 0 10px
     /*!covered60px 0 80px*/
   ;
   list-style: none;
@@ -134,7 +134,6 @@ html {
 
 body {
   margin: 0;
-  font: 300 17px;
   text-shadow: 0 0 1px rgba(0, 0, 0, .1);
   color: #505050;
   font-size: 15px;
@@ -2552,7 +2551,7 @@ h1.main-title {
   padding: 0;
   background-position: top center;
   background-repeat: no-repeat;
-  background-attachment: fixed;
+  background-attachment: scroll;
   background-size: cover;
   z-index: -1;
 }
@@ -3749,7 +3748,7 @@ h1.main-title {
 }
 
 .forgetmenot input[type=checkbox]:checked:before {
-  content: " &#65533;";
+  content: "✔";
   margin: -3px 0 0 -4px;
   color: #1e8cbe;
   display: inline-block;
@@ -4953,7 +4952,6 @@ h5::before {
   white-space: nowrap;
   text-overflow: ellipsis;
   margin-top: 0;
-  padding-top: 1%;
 }
 
 .bangumi-summary {
@@ -5219,10 +5217,7 @@ input:-webkit-autofill {
   -webkit-box-shadow: 0 0 0 1000px #fff inset;
   box-shadow: 0 0 0 1000px #fff inset;
 }
-::selection {
-	background: #887c80;
-	color:white;
-}
+
 ::selection,
 ::-moz-selection {
   background: #444;
@@ -5261,7 +5256,6 @@ canvas,
 video {
   display: inline-block;
   vertical-align: baseline;
-  z-index: -1;
 }
 
 audio:not([controls]) {
@@ -6900,7 +6894,7 @@ body.dark::-webkit-scrollbar-track {
 }
 
 .alipay-code:after {
-  content: "支付 &#65533;";
+  content: "支付宝";
 }
 
 .wechat-code:after {
@@ -7021,13 +7015,13 @@ body.dark::-webkit-scrollbar-track {
   mix-blend-mode: lighten;
 }
 
-.glitch:before {
-  text-shadow: 4px 0 #f57fa2;
+.glitch:hover:before {
+  text-shadow: 4px 0 #ff3f1a;
   animation: glitch-loop-1 .8s infinite ease-in-out alternate-reverse;
 }
 
-.glitch:after {
-  text-shadow: -5px 0 #7adaff;
+.glitch:hover:after {
+  text-shadow: -5px 0 #00a7e0;
   animation: glitch-loop-2 .8s infinite ease-in-out alternate-reverse;
 }
 
@@ -8173,7 +8167,7 @@ body.dark .post-list-thumb:hover {
 
 @media (max-width:860px) {
   .comments {
-    padding: 15% 0 0;
+    padding: 4% 0 0;
     max-width: 100%;
     max-width: 800px;
     margin-left: auto;
@@ -8279,14 +8273,14 @@ body.dark .post-list-thumb:hover {
 
 @supports (-webkit-touch-callout: none) {
   #centerbg {
-    background-attachment: fixed !important;
+    background-attachment: scroll !important;
   }
 }
 
 @media (max-width:860px) {
   #centerbg {
     height: 300px;
-    background-attachment: fixed;
+    background-attachment: scroll;
   }
 
   #video-container,
@@ -8540,11 +8534,11 @@ body.dark .post-list-thumb:hover {
 
   .searchbox.js-toggle-search {
     display: none;
-    /*移动端搜索关 &#65533;*/
+    /*移动端搜索关闭*/
   }
 
   .site-header {
-    /*移动端logo后背板高 &#65533;*/
+    /*移动端logo后背板高度*/
     height: 8%;
   }
 
@@ -9741,18 +9735,20 @@ body.dark .post-list-thumb:hover {
 
 @media (max-width: 860px) {
   .center-text {
-    /* 主页一言文字logo调整 */
+    /*主页一言文字logo调整*/
     font-size: 30px;
   }
 
   .header-info {
-    /* 打字效果防溢 &#65533; */
-    overflow: auto; /* 使用滚动条 */
+    /*打字效果防溢出*/
+    overflow: hidden;
+    text-overflow: ellipsis;
     white-space: nowrap;
   }
 
   .header-shuo {
-    overflow: auto; /* 使用滚动条 */
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 
@@ -9817,7 +9813,7 @@ body.dark .post-list-thumb:hover {
   }
 
   .post-list-thumb .post-title h3 {
-    padding: 2px 8px 0 8px;
+    padding: 0 8px 0 8px;
   }
 
   .post-meta {
