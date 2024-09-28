@@ -91,8 +91,30 @@ add_action('rest_api_init', function () {
         'callback' => 'create_CAPTCHA',
         'permission_callback' => '__return_true'
     )
-    );
+    ); 
+    // ChatGPT test route
+    register_rest_route('sakura/v1', '/chatgpt', array(
+        'methods' => 'GET',
+        'callback' => 'chatgpt_summarize',
+        'permission_callback' =>function ()
+        {
+         return current_user_can( 'administrator' ) ;
+        }
+    ));
 });
+
+require_once ('chatgpt/hooks.php');
+
+function chatgpt_summarize(WP_REST_Request $request)
+{
+    $post_id = $request->get_param('post_id');
+    $post = get_post($post_id);
+    if(!$post) {
+        return new WP_REST_Response("Invalid post ID", 400);
+    }
+    $excerpt = IROChatGPT\summon_article_excerpt($post);
+    return new WP_REST_Response($excerpt, 200);
+}
 
 /**
  * Image uploader response
@@ -114,8 +136,8 @@ function upload_image(WP_REST_Request $request)
             'status' => 403,
             'success' => false,
             'message' => 'Unauthorized client.',
-            'link' => "https://s.nmxc.ltd/sakurairo_vision/@2.6/basic/step04.md.png",
-            'proxy' => iro_opt('comment_image_proxy') . "https://s.nmxc.ltd/sakurairo_vision/@2.6/basic/step04.md.png",
+            'link' => "https://s.nmxc.ltd/sakurairo_vision/@2.7/basic/step04.md.png",
+            'proxy' => iro_opt('comment_image_proxy') . "https://s.nmxc.ltd/sakurairo_vision/@2.7/basic/step04.md.png",
         );
         $result = new WP_REST_Response($output, 403);
         $result->set_headers(array('Content-Type' => 'application/json'));

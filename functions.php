@@ -12,7 +12,7 @@ include_once('inc/classes/IpLocation.php');
 
 
 define('IRO_VERSION', wp_get_theme()->get('Version'));
-define('INT_VERSION', '18.4.0');
+define('INT_VERSION', '19.0.0');
 define('BUILD_VERSION', '2');
 
 function check_php_version($preset_version)
@@ -385,13 +385,13 @@ if (!function_exists('akina_comment_format')) {
                 <div class="comment-arrow">
                     <div class="main shadow">
                         <div class="profile">
-                            <a href="<?php comment_author_url(); ?>" target="_blank" rel="nofollow"><?php echo str_replace('src=', 'src="' . iro_opt('load_in_svg') . '" onerror="imgError(this,1)" data-src=', get_avatar($comment->comment_author_email, '80', '', get_comment_author(), array('class' => array('lazyload')))); ?></a>
+                            <a href="<?php comment_author_url(); ?>" target="_blank" rel="nofollow"><?php echo str_replace('src=', 'src="' . iro_opt('load_in_svg') . '" onerror="imgError(this,1)" data-src=', get_avatar($comment->comment_author_email, 80, '', get_comment_author(), array('class' => array('lazyload')))); ?></a>
                         </div>
                         <div class="commentinfo">
                             <section class="commeta">
                                 <div class="left">
                                     <h4 class="author">
-                                        <a href="<?php comment_author_url(); ?>" target="_blank" rel="nofollow"><?php echo get_avatar($comment->comment_author_email, '24', '', get_comment_author()); ?>
+                                        <a href="<?php comment_author_url(); ?>" target="_blank" rel="nofollow"><?php echo get_avatar($comment->comment_author_email, 24, '', get_comment_author()); ?>
                                             <span class="bb-comment isauthor" title="<?php _e('Author', 'sakurairo'); ?>"><?php _e('Blogger', 'sakurairo'); /*博主*/?></span>
                                             <?php comment_author(); ?><?php echo get_author_class($comment->comment_author_email, $comment->user_id); ?>
                                         </a>
@@ -453,7 +453,7 @@ function get_author_class($comment_author_email, $user_id)
     }
 
     // $Lv = $author_count < 5 ? 0 : ($author_count < 10 ? 1 : ($author_count < 20 ? 2 : ($author_count < 40 ? 3 : ($author_count < 80 ? 4 : ($author_count < 160 ? 5 : 6)))));
-    echo "<span class=\"showGrade{$Lv}\" title=\"Lv{$Lv}\"><img alt=\"level_img\" src=\"" . iro_opt('vision_resource_basepath', 'https://s.nmxc.ltd/sakurairo_vision/@2.6/') . "comment_level/level_{$Lv}.svg\" style=\"height: 1.5em; max-height: 1.5em; display: inline-block;\"></span>";
+    echo "<span class=\"showGrade{$Lv}\" title=\"Lv{$Lv}\"><img alt=\"level_img\" src=\"" . iro_opt('vision_resource_basepath', 'https://s.nmxc.ltd/sakurairo_vision/@2.7/') . "comment_level/level_{$Lv}.svg\" style=\"height: 1.5em; max-height: 1.5em; display: inline-block;\"></span>";
 }
 
 /**
@@ -545,7 +545,7 @@ function get_the_link_items($id = null)
             }
 
             if (empty($bookmark->link_image)) {
-                $bookmark->link_image = 'https://s.nmxc.ltd/sakurairo_vision/@2.6/basic/friendlink.jpg';
+                $bookmark->link_image = 'https://s.nmxc.ltd/sakurairo_vision/@2.7/basic/friendlink.jpg';
             }
 
             $output .= '<li class="link-item"><a class="link-item-inner effect-apollo" href="' . $bookmark->link_url . '" title="' . $bookmark->link_description . '" target="_blank" rel="friend"><img alt="friend_avator" class="lazyload" onerror="imgError(this,1)" data-src="' . $bookmark->link_image . '" src="' . iro_opt('load_in_svg') . '"></br><span class="sitename" style="' . $bookmark->link_notes . '">' . $bookmark->link_name . '</span><div class="linkdes">' . $bookmark->link_description . '</div></a></li>';
@@ -609,7 +609,7 @@ function visual_resource_updates($specified_version, $option_name, $new_value)
     if (version_compare($current_version, $specified_version, '>')) {
         $option_value = iro_opt($option_name);
         if (empty($option_value)) {
-            $option_value = "https://s.nmxc.ltd/sakurairo_vision/@2.6/";
+            $option_value = "https://s.nmxc.ltd/sakurairo_vision/@2.7/";
         } else if (strpos($option_value, '@') === false || substr($option_value, strpos($option_value, '@') + 1) !== $new_value) {
             $option_value = preg_replace('/@.*/', '@' . $new_value, $option_value);
         }
@@ -893,10 +893,10 @@ if ($custom_login_switch) {
     //Login Page Footer
     function custom_html()
     {
-        $loginbg = iro_opt('login_background') ?: iro_opt('vision_resource_basepath', 'https://s.nmxc.ltd/sakurairo_vision/@2.6/') . 'series/login_background.webp';
+        $loginbg = iro_opt('login_background') ?: iro_opt('vision_resource_basepath', 'https://s.nmxc.ltd/sakurairo_vision/@2.7/') . 'series/login_background.webp';
         ?>
                                                                     <script type="text/javascript">
-                                                                        document.body.insertAdjacentHTML("afterbegin", "<div class=\"loading\"><img src=\"<?= iro_opt('vision_resource_basepath', 'https://s.nmxc.ltd/sakurairo_vision/@2.6/')
+                                                                        document.body.insertAdjacentHTML("afterbegin", "<div class=\"loading\"><img src=\"<?= iro_opt('vision_resource_basepath', 'https://s.nmxc.ltd/sakurairo_vision/@2.7/')
                                                                             ?>basic/login_loading.gif\" width=\"58\" height=\"10\"></div>");
                                                                         document.head.insertAdjacentHTML("afterbegin", "<style>.show{opacity:1;}.hide{opacity:0;transition: opacity 400ms;}</style>");
                                                                         const loading = document.querySelector(".loading"),
@@ -1016,7 +1016,7 @@ function comment_mail_notify($comment_id)
             . trim($comment->comment_content) . '</div>
 
       <div style="text-align: center;">
-          <img src="' . iro_opt('vision_resource_basepath', 'https://s.nmxc.ltd/sakurairo_vision/@2.6/') . 'basic/comment-mail.png" alt="hr" style="width:100%;
+          <img src="' . iro_opt('vision_resource_basepath', 'https://s.nmxc.ltd/sakurairo_vision/@2.7/') . 'basic/comment-mail.png" alt="hr" style="width:100%;
                                                                                                   margin:5px auto 5px auto;
                                                                                                   display: block;">
           <a style="text-transform: uppercase;
@@ -1034,7 +1034,7 @@ function comment_mail_notify($comment_id)
     </div>
 ';
         $message = convert_smilies($message);
-        $message = str_replace('{{', '<img src="' . iro_opt('vision_resource_basepath', 'https://s.nmxc.ltd/sakurairo_vision/@2.6/') . '/smilies/bilipng/emoji_', $message);
+        $message = str_replace('{{', '<img src="' . iro_opt('vision_resource_basepath', 'https://s.nmxc.ltd/sakurairo_vision/@2.7/') . '/smilies/bilipng/emoji_', $message);
         $message = str_replace('}}', '.png" alt="emoji" style="height: 2em; max-height: 2em;">', $message);
 
         $message = str_replace('{UPLOAD}', 'https://i.loli.net/', $message);
@@ -1275,9 +1275,9 @@ function push_tieba_smilies()
     foreach ($tiebaname as $tieba_Name) {
         $grin = make_onclick_grin($tieba_Name,'tieba');
         // 选择面版
-        $return_smiles = $return_smiles . '<span title="' . $tieba_Name . '" '.$grin.'><img alt="tieba_smilie" loading="lazy" src="' . iro_opt('vision_resource_basepath', 'https://s.nmxc.ltd/sakurairo_vision/@2.6/') . 'smilies/' . $tiebaimgdir . 'icon_' . $tieba_Name . $smiliesgs . '" /></span>';
+        $return_smiles = $return_smiles . '<span title="' . $tieba_Name . '" '.$grin.'><img alt="tieba_smilie" loading="lazy" src="' . iro_opt('vision_resource_basepath', 'https://s.nmxc.ltd/sakurairo_vision/@2.7/') . 'smilies/' . $tiebaimgdir . 'icon_' . $tieba_Name . $smiliesgs . '" /></span>';
         // 正文转换
-        $wpsmiliestrans['::' . $tieba_Name . '::'] = '<span title="' . $tieba_Name . '" '.$grin.'><img alt="tieba_smilie" loading="lazy" src="' . iro_opt('vision_resource_basepath', 'https://s.nmxc.ltd/sakurairo_vision/@2.6/') . 'smilies/' . $tiebaimgdir . 'icon_' . $tieba_Name . $smiliesgs . '" /></span>';
+        $wpsmiliestrans['::' . $tieba_Name . '::'] = '<span title="' . $tieba_Name . '" '.$grin.'><img alt="tieba_smilie" loading="lazy" src="' . iro_opt('vision_resource_basepath', 'https://s.nmxc.ltd/sakurairo_vision/@2.7/') . 'smilies/' . $tiebaimgdir . 'icon_' . $tieba_Name . $smiliesgs . '" /></span>';
     }
     return $return_smiles;
 }
@@ -1313,9 +1313,9 @@ function push_bili_smilies()
     foreach ($name as $smilies_Name) {
         $grin = make_onclick_grin($smilies_Name,'Math');
         // 选择面版
-        $return_smiles = $return_smiles . '<span title="' . $smilies_Name . '" '.$grin.'><img alt="bili_smilies" loading="lazy" src="' . iro_opt('vision_resource_basepath', 'https://s.nmxc.ltd/sakurairo_vision/@2.6/') . 'smilies/' . $biliimgdir . 'emoji_' . $smilies_Name . $smiliesgs . '" /></span>';
+        $return_smiles = $return_smiles . '<span title="' . $smilies_Name . '" '.$grin.'><img alt="bili_smilies" loading="lazy" src="' . iro_opt('vision_resource_basepath', 'https://s.nmxc.ltd/sakurairo_vision/@2.7/') . 'smilies/' . $biliimgdir . 'emoji_' . $smilies_Name . $smiliesgs . '" /></span>';
         // 正文转换
-        $bilismiliestrans['{{' . $smilies_Name . '}}'] = '<span title="' . $smilies_Name . '" '.$grin.'><img alt="bili_smilies" loading="lazy" src="' . iro_opt('vision_resource_basepath', 'https://s.nmxc.ltd/sakurairo_vision/@2.6/') . 'smilies/' . $biliimgdir . 'emoji_' . $smilies_Name . $smiliesgs . '" /></span>';
+        $bilismiliestrans['{{' . $smilies_Name . '}}'] = '<span title="' . $smilies_Name . '" '.$grin.'><img alt="bili_smilies" loading="lazy" src="' . iro_opt('vision_resource_basepath', 'https://s.nmxc.ltd/sakurairo_vision/@2.7/') . 'smilies/' . $biliimgdir . 'emoji_' . $smilies_Name . $smiliesgs . '" /></span>';
     }
     return $return_smiles;
 }
@@ -1347,7 +1347,7 @@ function bili_smile_filter_rss($content)
     $type = is_webp() ? 'webp' : 'png';
     $biliimgdir = 'bili' . $type . '/';
     $smiliesgs = '.' . $type;
-    $content = str_replace('{{', '<img src="' . iro_opt('vision_resource_basepath', 'https://s.nmxc.ltd/sakurairo_vision/@2.6/') . 'smilies/' . $biliimgdir, $content);
+    $content = str_replace('{{', '<img src="' . iro_opt('vision_resource_basepath', 'https://s.nmxc.ltd/sakurairo_vision/@2.7/') . 'smilies/' . $biliimgdir, $content);
     $content = str_replace('}}', $smiliesgs . '" alt="emoji" style="height: 2em; max-height: 2em;">', $content);
     $content = str_replace('[img]', '<img src="', $content);
     $content = str_replace('[/img]', '" style="display: block;margin-left: auto;margin-right: auto;">', $content);
@@ -1491,7 +1491,7 @@ function memory_archives_list()
             $mon = $mon_tmp;
             $output .= '<li class="al_li"><span class="al_mon"><span style="color:' . iro_opt('theme_skin') . ';">' . get_post_time('M', false, $post) . '</span> (<span id="post-num"></span>' . __(" post(s)", "sakurairo") /*篇文章*/. ')</span><ul class="al_post_list">'; //输出月份
         }
-        $output .= '<li>' . '<a href="' . get_permalink($post) . '"><span style="color:' . iro_opt('theme_skin') . ';">' /*get_post_time('d'.__(" ","sakurairo"), false, $post) 日*/. '</span>' . get_the_title($post) . ' <span>(' . $post_views . ' <span class="fa-regular fa-gem" aria-hidden="true"></span> / ' . get_comments_number($post) . ' <span class="fa-regular fa-comment-dots" aria-hidden="true"></span>)</span></a></li>';
+        $output .= '<li>' . '<a href="' . get_permalink($post) . '"><span style="color:' . iro_opt('theme_skin') . ';">' /*get_post_time('d'.__(" ","sakurairo"), false, $post) 日*/. '</span>' . get_the_title($post) . ' <span>(' . $post_views . ' <span class="fa-solid fa-chess-queen" aria-hidden="true"></span> / ' . get_comments_number($post) . ' <span class="fa-regular fa-comment-dots" aria-hidden="true"></span>)</span></a></li>';
     }
     wp_reset_postdata();
     $output .= '</ul></li></ul> <!--<ul class="al_mon_list"><li><ul class="al_post_list" style="display: block;"><li>博客已经萌萌哒运行了<span id="monitorday"></span>天</li></ul></li></ul>--></div>';
@@ -1505,6 +1505,25 @@ function clear_memory_archives_list_cache($post_id)
     delete_transient('memory_archives_list_' . get_locale());
 }
 add_action('save_post', 'clear_memory_archives_list_cache');
+
+require_once __DIR__ . '/inc/word-stat.php';
+/**
+ * 字数、词数统计
+ */
+function count_post_words($post_ID)
+{
+    $post = get_post($post_ID);
+    if ($post->post_type !== "post") {
+        return;
+    }
+    $content = $post->post_content;
+    $content = strip_tags($content);
+    $count = word_stat($content);
+    update_post_meta($post_ID, 'post_words_count', $count);
+    return $count;
+}
+
+add_action('save_post', 'count_post_words');
 
 /*
  * 隐藏 Dashboard
@@ -1580,12 +1599,12 @@ IROChatGPT\apply_chatgpt_hook();
 function excerpt_length($exp)
 {
     if (!function_exists('mb_substr')) {
-        $exp = GBsubstr($exp, 0, 80);
+        $exp = GBsubstr($exp, 0, 110);
     } else {
         /*
          * To use mb_substr() function, you should uncomment "extension=php_mbstring.dll" in php.ini
          */
-        $exp = mb_substr($exp, 0, 80);
+        $exp = mb_substr($exp, 0, 110);
     }
     return $exp;
 }
@@ -1765,7 +1784,7 @@ dash_scheme(
     $base = "#FFF",
     $focus = "#FFF",
     $current = "#FFF",
-    $rules = '#adminmenu .wp-has-current-submenu .wp-submenu a,#adminmenu .wp-has-current-submenu.opensub .wp-submenu a,#adminmenu .wp-submenu a,#adminmenu a.wp-has-current-submenu:focus+.wp-submenu a,#wpadminbar .ab-submenu .ab-item,#wpadminbar .quicklinks .menupop ul li a,#wpadminbar .quicklinks .menupop.hover ul li a,#wpadminbar.nojs .quicklinks .menupop:hover ul li a,.folded #adminmenu .wp-has-current-submenu .wp-submenu a{color:' . iro_opt('admin_text_color') . '}body{background-image:url(' . iro_opt('admin_background') . ');background-attachment:fixed;background-size:cover;}#wpcontent{background:rgba(255,255,255,.0)}.wp-core-ui .button-primary{background:' . iro_opt('admin_button_color') . '!important;border-color:' . iro_opt('admin_button_color') . '!important;color:' . iro_opt('admin_text_color') . '!important;box-shadow:0 1px 0 ' . iro_opt('admin_button_color') . '!important;text-shadow:0 -1px 1px ' . iro_opt('admin_button_color') . ',1px 0 1px ' . iro_opt('admin_button_color') . ',0 1px 1px ' . iro_opt('admin_button_color') . ',-1px 0 1px ' . iro_opt('admin_button_color') . '!important}'
+    $rules = '#adminmenu .wp-has-current-submenu .wp-submenu a,#adminmenu .wp-has-current-submenu.opensub .wp-submenu a,#adminmenu .wp-submenu a,#adminmenu a.wp-has-current-submenu:focus+.wp-submenu a,#wpadminbar .ab-submenu .ab-item,#wpadminbar .quicklinks .menupop ul li a,#wpadminbar .quicklinks .menupop.hover ul li a,#wpadminbar.nojs .quicklinks .menupop:hover ul li a, .csf-field-button_set .csf--active, .csf-field-button_set .csf--active:hover, .folded #adminmenu .wp-has-current-submenu .wp-submenu a{color:' . iro_opt('admin_text_color') . '}body{background-image:url(' . iro_opt('admin_background') . ');background-attachment:fixed;background-size:cover;}#wpcontent{background:rgba(255,255,255,.0)}.wp-core-ui .button-primary{background:' . iro_opt('admin_button_color') . '!important;border-color:' . iro_opt('admin_button_color') . '!important;color:' . iro_opt('admin_text_color') . '!important;box-shadow:0 1px 0 ' . iro_opt('admin_button_color') . '!important;text-shadow:0 -1px 1px ' . iro_opt('admin_button_color') . ',1px 0 1px ' . iro_opt('admin_button_color') . ',0 1px 1px ' . iro_opt('admin_button_color') . ',-1px 0 1px ' . iro_opt('admin_button_color') . '!important}'
 );
 
 //Set Default Admin Color Scheme for New Users
@@ -2284,10 +2303,16 @@ function show_card($attr, $content = '')
 add_shortcode('conversations', 'conversations');
 function conversations($attr, $content = '')
 {
-    extract(shortcode_atts(array("avatar" => "", "direction" => ""), $attr));
-
+    $size = 40;
+    extract(shortcode_atts(array("avatar" => "", "direction" => "", "username" => ""), $attr));
+    if ($avatar == "" && $username != "") {
+        $user_id = get_user_by('login', $username)->ID;
+        if ($user_id) {
+            $avatar = get_avatar_url($user_id, 40);
+        }
+    }
     $output = '<div class="conversations-code" style="display: flex; flex-direction: ' . $direction . '; padding: 10px;">';
-    $output .= '<img src="' . $avatar . '" style="width: 40px; height: 40px; border-radius: 50%;">';
+    $output .= "<img src=\"$avatar\" style=\"width: {$size}px; height: {$size}px; border-radius: 50%;\">";
     $output .= '<div class="conversations-code-text">' . $content . '</div>';
     $output .= '</div>';
 
@@ -2622,3 +2647,12 @@ function login_protection(){
     if($_GET['cmxz'] != 'yish')header('Location: https://cmxz.top');  
 }
 
+
+function iterator_to_string(Iterator $iterator): string
+{
+    $content = '';
+    foreach ($iterator as $item) {
+        $content .= $item;
+    }
+    return $content;
+}
