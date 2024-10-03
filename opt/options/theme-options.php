@@ -73,40 +73,6 @@ $prefix = 'iro_options';
       ),
 
       array(
-        'id'        => 'personal_signature',
-        'type'      => 'fieldset',
-        'title'     => __('Personal Signature Options','sakurairo_csf'),
-        'fields'    => array(
-          array(
-            'id'     => 'text',
-            'type'   => 'text',
-            'title'  => __('Text','sakurairo_csf'),
-            'desc'   => __('The text content should not be too long, and the recommended length is 8 bytes.','sakurairo_csf'),
-          ),
-          array(
-            'id'     => 'font',
-            'type'   => 'text',
-            'title'  => __('Font','sakurairo_csf'),
-            'desc'   => __('Fill in the font name. For example: Noto Serif SC','sakurairo_csf'),
-          ),
-          array(
-            'id'      => 'customization',
-            'type'    => 'code_editor',
-            'title'   => __('Customization','sakurairo_csf'),
-            'desc'    => __('Customize the signature style','sakurairo_csf'),
-          ),      
-        ),
-        'default'        => array(
-          'text'    => 'furina',
-          'customizationr'    => '
-          background: linear-gradient(to right, #C0C0C0, #FFFFFF, #C0C0C0);
-          -webkit-background-clip: text;
-          background-clip: text;
-          -webkit-text-fill-color: transparent;',
-        ),
-      ),
-
-      array(
         'id'    => 'text_logo_options',
         'type'  => 'switcher',
         'title' => __('Mashiro Special Effects Text','sakurairo_csf'),
@@ -671,14 +637,6 @@ $prefix = 'iro_options';
         'type' => 'switcher',
         'title' => __('Widgets Panel WP Widget Area','sakurairo_csf'),
         'label' => __('When turned on, the WP Widget Area will be displayed in Widgets Panel','sakurairo_csf'),
-        'default' => false
-      ),
-
-      array(
-        'id' => 'widget_shuo',
-        'type' => 'switcher',
-        'title' => __('Widgets Panel Shuoshuo','sakurairo_csf'),
-        'label' => __('When turned on, the Latest Shuoshuo text will be displayed in Widgets Panel','sakurairo_csf'),
         'default' => false
       ),
 
@@ -2479,7 +2437,7 @@ $prefix = 'iro_options';
       ),
 
       array(
-        'id'         => 'post_list_iro_type',
+        'id'         => 'post_list_design',
         'type'       => 'image_select',
         'title' => __('Article Area Card Design','sakurairo_csf'),
         'desc' => __('You can choose between letter design or ticket design','sakurairo_csf'),
@@ -2488,6 +2446,19 @@ $prefix = 'iro_options';
           'ticket' => 'https://s.nmxc.ltd/sakurairo_vision/@2.7/options/post_list_design_ticket.webp',
         ),
         'default'    => 'letter'
+      ),
+
+      array(
+        'id'         => 'post_list_ticket_type',
+        'type'       => 'image_select',
+        'title' => __('Article Area Card Ticket Design Title Style','sakurairo_csf'),
+        'desc' => __('You can choose between card style or Non-card style','sakurairo_csf'),
+        'dependency' => array( 'post_list_design', '==', 'ticket', '', 'true' ),
+        'options'    => array(
+          'card' => 'https://s.nmxc.ltd/sakurairo_vision/@2.7/options/post_list_design_ticket.webp',
+          'non-card' => 'https://s.nmxc.ltd/sakurairo_vision/@2.7/options/post_list_design_ticket_2.webp',
+        ),
+        'default'    => 'card'
       ),
 
       array(
@@ -2519,14 +2490,6 @@ $prefix = 'iro_options';
         'max' => '30',
         'default' => '10'
       ),
-
-      array(
-        'id' => 'post_border_shadow_color',
-        'type' => 'color',
-        'title' => __('Article Area Card Border Shadow Color','sakurairo_csf'),
-        'desc' => __('Customize the colors, suggest using a corresponding color with the background color','sakurairo_csf'),
-        'default' => '#e8e8e8'
-      ),    
 
       array(
         'id' => 'article_meta_background_compatible',
@@ -2707,6 +2670,18 @@ $prefix = 'iro_options';
       ),
 
       array(
+        'id' => 'article_meta_show_in_head',
+        "type" => "select",
+        "title" => __("Display Article Meta before the Contents","sakurairo_csf"),
+        'desc' => __('You can freely select the information Meta to be displayed, this option cannot be set on mobile','sakurairo_csf'),
+        "chosen" => true,
+        "multiple" => true,
+        "sortable" => true,
+        "options"=> $AVAIL_METADATA_POST_HEADER,
+        "default" => array("author","publish_time_relative","post_views","EDIT")
+      ),
+
+      array(
         'id' => 'article_auto_toc',
         'type' => 'switcher',
         'title' => __('Article Page Auto Show Menu','sakurairo_csf'),
@@ -2844,17 +2819,6 @@ $prefix = 'iro_options';
         'default' => true
       ),
 
-      array(
-        'id' => 'article_meta_show_in_head',
-        "type" => "select",
-        "title" => __("Display Article Meta before the Contents","sakurairo_csf"),
-        'desc' => __('You can freely select the information Meta to be displayed, this option cannot be set on mobile','sakurairo_csf'),
-        "chosen" => true,
-        "multiple" => true,
-        "sortable" => true,
-        "options"=> $AVAIL_METADATA_POST_HEADER,
-        "default" => array("author","publish_time_relative","post_views","EDIT")
-      )
     )
   ) );
 
@@ -2886,55 +2850,10 @@ $prefix = 'iro_options';
         'default' => '40'
       ),
 
-      array(
-        'type' => 'subheading',
-        'content' => __('ShuoShuo Template Settings','sakurairo_csf'),
-      ),
-
-      array(
-        'id' => 'shuoshuo_background_color1',
-        'type' => 'color',
-        'title' => __('Ideas Template Background ColorⅠ','sakurairo_csf'),
-        'desc' => __('Customize the colors','sakurairo_csf'),
-        'default' => 'rgba(255,224,102,0.2)'
-      ),    
-
-      array(
-        'id' => 'shuoshuo_background_color2',
-        'type' => 'color',
-        'title' => __('Ideas Template Background Color II','sakurairo_csf'),
-        'desc' => __('Customize the colors','sakurairo_csf'),
-        'default' => 'rgba(255,204,0,0.2)'
-      ),    
-
-      array(
-        'id' => 'shuoshuo_arrow',
-        'type' => 'switcher',
-        'title' => __('Ideas Template Tip Arrow','sakurairo_csf'),
-        'label' => __('After turning on the alert arrow will appear on the left side of the comment','sakurairo_csf'),
-        'default' => false
-      ),
-
-      array(
-        'id' => 'shuoshuo_font',
-        'type' => 'text',
-        'title' => __('Ideas Template Font','sakurairo_csf'),
-        'desc' => __('Fill in the font name. For example: Noto Serif SC','sakurairo_csf'),
-        'default' => 'Noto Serif SC'
-      ),
-
-      array(
-        'id' => 'shuoshuo_per_page',
-        'type' => 'text',
-        'title' => __('Number Of ShuoShuo','sakurairo_csf'),
-        'desc' => __('Enter a positive integer or "-1" to control the number of ShuoShuo displayed on each page. Enter "-1" to display all messages.','sakurairo_csf'),
-        'default'     => '5'
-      ),
-
-      array(
-        'type' => 'subheading',
-        'content' => __('Bangumi Template Settings','sakurairo_csf'),
-      ),
+    array(
+      'type' => 'subheading',
+      'content' => __('Bangumi Template Settings','sakurairo_csf'),
+    ),
 
 	  array(
 		'id' => 'bangumi_source',

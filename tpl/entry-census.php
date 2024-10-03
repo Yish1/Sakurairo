@@ -3,18 +3,21 @@ function get_edit_html(): string
 {
     $url = get_edit_post_link();
     if ($url) {
-        return '<a href="' . $url . '">' . __("EDIT", "sakurairo") . '</a>';
+        return ' <a href="' . $url . '">' . __("EDIT", "sakurairo") . '</a>';
     }
     return '';
 }
 function __wrap_with_span($content): string
 {
-    return "<span>$content</span>";
+    return " <span>$content</span>";
 }
 function get_entry_census_meta_html($has_splitter)
 {
     $post = get_post();
     $meta_display = iro_opt("article_meta_show_in_head", array("last_edit_time_relative", "post_views"));
+    if (!is_array($meta_display) && !is_object($meta_display)) {
+        $meta_display = array("last_edit_time_relative", "post_views");
+    }
     foreach ($meta_display as $meta_key) {
         $content = false;
         switch ($meta_key) {
@@ -40,6 +43,8 @@ function get_entry_census_meta_html($has_splitter)
                 $content = get_post_views(get_the_ID()) . ' ' . _n('View', 'Views', get_post_views(get_the_ID()), 'sakurairo');/*次阅读*/
                 if ($has_splitter) {
                     $content = __wrap_with_span($content);
+                } else {
+                    $content = ' ' . $content;
                 }
                 break;
             case "post_words_count":
@@ -47,6 +52,8 @@ function get_entry_census_meta_html($has_splitter)
                 $content = get_meta_words_count();
                 if ($has_splitter) {
                     $content = __wrap_with_span($content);
+                } else {
+                    $content = ' ' . $content;
                 }
                 break;
             case "reading_time":
@@ -54,18 +61,24 @@ function get_entry_census_meta_html($has_splitter)
                 $content = __("Estimate Reading Time", "sakurairo") . ": " . get_meta_estimate_reading_time();
                 if ($has_splitter) {
                     $content = __wrap_with_span($content);
+                } else {
+                    $content = ' ' . $content;
                 }
                 break;
             case "publish_time_relative":
                 $content = poi_time_since(strtotime($post->post_date));
                 if ($has_splitter) {
                     $content = __wrap_with_span($content);
+                } else {
+                    $content = ' ' . $content;
                 }
                 break;
             case "last_edit_time_relative":
                 $content = poi_time_since(strtotime($post->post_modified), false, __('Last updated on ', 'sakurairo'));
                 if ($has_splitter) {
-                    $content = __wrap_with_span($content);
+                    $content = __wrap_with_span(__("Last updated on", "sakurairo") . ' ' . $content);
+                } else {
+                    $content = ' ' . __("Last updated on", "sakurairo") . ' ' . $content;
                 }
                 break;
             case "EDIT":
