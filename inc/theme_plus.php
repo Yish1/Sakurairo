@@ -282,6 +282,7 @@ function login_ok(){
 function the_headPattern(){
   $t = ''; // 标题
   $full_image_url = wp_get_attachment_image_src(get_post_thumbnail_id(get_the_ID()), 'full');
+  $title_style = get_post_meta(get_the_ID(), 'title_style', true); // 获取自定义字段的值
   if(is_single()){
     require_once get_stylesheet_directory() . '/tpl/entry-census.php';
     $full_image_url = !empty($full_image_url) ? $full_image_url[0] : null;
@@ -289,13 +290,13 @@ function the_headPattern(){
     $center = 'single-center';
     $header = 'single-header';
     //$ava = iro_opt('personal_avatar', '') ? iro_opt('personal_avatar', '') : get_avatar_url(get_the_author_meta('user_email'));
-    $t .= the_title( '<h1 class="entry-title">', '</h1>', false);
+    $t .= the_title( '<h1 class="entry-title" style="' . esc_attr($title_style) . '">', '</h1>', false);
     $t .= '<span class="toppic-line"></span>';
     $t .= get_entry_census_html(true);
     endwhile; endif;
   }elseif(is_page()){
     $full_image_url = !empty($full_image_url) ? $full_image_url[0] : null;
-    $t .= the_title( '<span><h1 class="entry-title">', '</h1></span>', false);
+    $t .= the_title( '<span><h1 class="entry-title" style="' . esc_attr($title_style) . '">', '</h1></span>', false);
   }elseif(is_archive()){
     $full_image_url = z_taxonomy_image_url();
     $des = category_description() ? category_description() : ''; // 描述
@@ -590,11 +591,19 @@ function siren_auto_link_nofollow( $content ) {
 // 图片自动加标题
 add_filter('the_content', 'siren_auto_images_alt');
 function siren_auto_images_alt($content) {
-  global $post;
-  $pattern ="/<a(.*?)href=('|\")(.*?).(bmp|gif|jpeg|jpg|png)('|\")(.*?)>/i";
-  $replacement = '<a$1href=$2$3.$4$5 alt="'.$post->post_title.'" title="'.$post->post_title.'"$6>';
-  $content = preg_replace($pattern, $replacement, $content);
-  return $content;
+    global $post;
+    $post_title = $post ? $post->post_title : '默认标题'; // 检查 $post 是否为空
+
+    // 优化正则表达式
+    $pattern = '/<a([^>]*?)href=(["\'])([^"\']*?\.(?:bmp|gif|jpeg|jpg|png))\2([^>]*?)>/i';
+    $replacement = '<a$1href=$2$3$2 alt="' . esc_attr($post_title) . '" title="' . esc_attr($post_title) . '"$4>';
+
+    // 使用 preg_replace_callback 以提高性能
+    $content = preg_replace_callback($pattern, function($matches) use ($post_title) {
+        return '<a' . $matches[1] . 'href=' . $matches[2] . $matches[3] . $matches[2] . ' alt="' . esc_attr($post_title) . '" title="' . esc_attr($post_title) . '"' . $matches[4] . '>';
+    }, $content);
+
+    return $content;
 }
 
 // 分类页面全部添加斜杠，利于SEO
