@@ -2689,7 +2689,7 @@ h1.main-title {
   padding: 0;
   background-position: top center;
   background-repeat: no-repeat;
-  background-attachment: scroll;
+  background-attachment: fixed;
   background-size: fixed;
   z-index: -1;
 }
