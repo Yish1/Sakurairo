@@ -298,11 +298,10 @@ function sakura_scripts()
     global $core_lib_basepath;
     global $shared_lib_basepath;
 
-    if (iro_opt('smoothscroll_option')) {
-        wp_enqueue_script('SmoothScroll', $shared_lib_basepath . '/js/smoothscroll.js', array(), IRO_VERSION . iro_opt('cookie_version', ''), true);
-    }
-
     wp_enqueue_style('saukra-css', $core_lib_basepath . '/style.css', array(), IRO_VERSION);
+
+    if(!is_404()){
+    wp_enqueue_script('app', $core_lib_basepath . '/js/app.js', array('polyfills'), IRO_VERSION, true);
     if (!is_home()) {
         //非主页的资源
         wp_enqueue_style(
@@ -313,7 +312,7 @@ function sakura_scripts()
         );
         wp_enqueue_script('app-page', $core_lib_basepath . '/js/page.js', array('app', 'polyfills'), IRO_VERSION, true);
     }
-    wp_enqueue_script('app', $core_lib_basepath . '/js/app.js', array('polyfills'), IRO_VERSION, true);
+    }
     wp_enqueue_script('polyfills', $core_lib_basepath . '/js/polyfill.js', array(), IRO_VERSION, true);
     if (is_singular() && comments_open() && get_option('thread_comments')) {
         wp_enqueue_script('comment-reply');
@@ -349,6 +348,9 @@ function sakura_scripts()
                 "您之前已设过私密评论" => __("You had set private comment before", 'sakurairo')
             )
         );
+    }
+    if (iro_opt('smoothscroll_option')) {
+        wp_enqueue_script('SmoothScroll', $shared_lib_basepath . '/js/smoothscroll.js', array(), IRO_VERSION . iro_opt('cookie_version', ''), true);
     }
 }
 add_action('wp_enqueue_scripts', 'sakura_scripts');
@@ -602,7 +604,7 @@ function visual_resource_updates($specified_version, $option_name, $new_value)
     $current_version = $theme->get('Version');
 
     // Check if the function has already been triggered
-    $function_triggered = get_transient('visual_resource_updates_triggered18');
+    $function_triggered = get_transient('visual_resource_updates_triggered19');
     if ($function_triggered) {
         return; // Function has already been triggered, do nothing
     }
@@ -617,11 +619,11 @@ function visual_resource_updates($specified_version, $option_name, $new_value)
         iro_opt_update($option_name, $option_value);
 
         // Set transient to indicate that the function has been triggered
-        set_transient('visual_resource_updates_triggered18', true);
+        set_transient('visual_resource_updates_triggered19', true);
     }
 }
 
-visual_resource_updates('2.5.6', 'vision_resource_basepath', '2.6/');
+visual_resource_updates('2.5.6', 'vision_resource_basepath', '2.7/');
 
 function gfonts_updates($specified_version, $option_name)
 {
@@ -629,7 +631,7 @@ function gfonts_updates($specified_version, $option_name)
     $current_version = $theme->get('Version');
 
     // Check if the function has already been triggered
-    $function_triggered = get_transient('gfonts_updates_triggered18');
+    $function_triggered = get_transient('gfonts_updates_triggered19');
     if ($function_triggered) {
         return; // Function has already been triggered, do nothing
     }
@@ -642,7 +644,7 @@ function gfonts_updates($specified_version, $option_name)
         }
 
         // Set transient to indicate that the function has been triggered
-        set_transient('gfonts_updates_triggered18', true);
+        set_transient('gfonts_updates_triggered19', true);
     }
 }
 
@@ -654,7 +656,7 @@ function gravater_updates($specified_version, $option_name)
     $current_version = $theme->get('Version');
 
     // Check if the function has already been triggered
-    $function_triggered = get_transient('gravater_updates_triggered181');
+    $function_triggered = get_transient('gravater_updates_triggered19');
     if ($function_triggered) {
         return; // Function has already been triggered, do nothing
     }
@@ -667,36 +669,11 @@ function gravater_updates($specified_version, $option_name)
         }
 
         // Set transient to indicate that the function has been triggered
-        set_transient('gravater_updates_triggered181', true);
+        set_transient('gravater_updates_triggered19', true);
     }
 }
 
 gravater_updates('2.5.6', 'gravatar_proxy');
-
-function chatgpt_updates($specified_version, $option_name)
-{
-    $theme = wp_get_theme();
-    $current_version = $theme->get('Version');
-
-    // Check if the function has already been triggered
-    $function_triggered = get_transient('chatgpt_updates_triggered18');
-    if ($function_triggered) {
-        return; // Function has already been triggered, do nothing
-    }
-
-    if (version_compare($current_version, $specified_version, '>')) {
-        $option_value = iro_opt($option_name);
-        if (empty($option_value) || $option_value !== 'https://openai.fuukei.org/') {
-            $option_value = 'https://openai.fuukei.org/';
-            iro_opt_update($option_name, $option_value);
-        }
-
-        // Set transient to indicate that the function has been triggered
-        set_transient('chatgpt_updates_triggered18', true);
-    }
-}
-
-chatgpt_updates('2.6.3.1', 'chatgpt_base_url');
 
 /*
  * 阻止站内文章互相Pingback
@@ -2311,7 +2288,6 @@ function show_card($attr, $content = '')
 add_shortcode('conversations', 'conversations');
 function conversations($attr, $content = '')
 {
-    $size = 40;
     extract(shortcode_atts(array("avatar" => "", "direction" => "", "username" => ""), $attr));
     if ($avatar == "" && $username != "") {
         $user_id = get_user_by('login', $username)->ID;
@@ -2319,9 +2295,10 @@ function conversations($attr, $content = '')
             $avatar = get_avatar_url($user_id, 40);
         }
     }
-    $output = '<div class="conversations-code" style="display: flex; flex-direction: ' . $direction . '; padding: 10px;">';
-    $output .= "<img src=\"$avatar\" style=\"width: {$size}px; height: {$size}px; border-radius: 50%;\">";
-    $output .= '<div class="conversations-code-text">' . $content . '</div>';
+    $speaker_alt = $username?'<span class="screen-reader-text">'.sprintf(__("%s says: ","sakurairo"),$username).'</span>':"";
+    $output = '<div class="conversations-code" style="flex-direction: ' . $direction . ';">';
+    $output .= "<img src=\"$avatar\">";
+    $output .= '<div class="conversations-code-text">'. $speaker_alt . $content . '</div>';
     $output .= '</div>';
 
     return $output;

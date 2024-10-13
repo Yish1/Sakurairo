@@ -14,16 +14,12 @@ if (iro_opt('theme_skin')) { ?>
 :root{
     --theme-skin: <?=iro_opt('theme_skin'); ?>;
     --theme-skin-matching:<?=iro_opt('theme_skin_matching'); ?>;
-    --infor_bar_bgcolor:<?=iro_opt('infor_bar_bgcolor'); ?>;
+    --homepage_widget_transparency:<?=iro_opt('homepage_widget_transparency'); ?>;
     --style_menu_selection_radius:<?=iro_opt('style_menu_selection_radius', ''); ?>px;
     --load_nextpage_svg:url("<?=iro_opt('load_nextpage_svg'); ?>");
     --style_menu_radius:<?=iro_opt('style_menu_radius', ''); ?>px;
     --friend-link-shadow: <?=iro_opt('friend_link_shadow_color'); ?>;
     --friend-link-title: <?=iro_opt('friend_link_title_matching_color'); ?>;
-    --comment_area_matching: <?=iro_opt('comment_area_matching_color'); ?>;
-    --comment_area_shadow: <?=iro_opt('comment_area_shadow_color'); ?>;
-    --shuoshuo_background_color1:<?=iro_opt('shuoshuo_background_color1');?>;
-    --shuoshuo_background_color2:<?=iro_opt('shuoshuo_background_color2');?>;
     --inline_code_background_color:<?=iro_opt('inline_code_background_color');?>;
     <?php //深色模式主题色 ?>
     --theme-skin-dark:  <?=iro_opt('theme_skin_dark'); ?>;
@@ -347,17 +343,24 @@ html {
 /*可变项目*/
 
 /*深色模式控件透明度*/
-body.dark .header-info,
-body.dark .header-shuo,
+body.dark .header-info
+{color:#fff;background:rgba(51,51,51,<?=iro_opt('theme_darkmode_widget_transparency'); ?>);transition: all 0.6s ease-in-out;}
+
 body.dark .top-social img
-{color:#fff;background:rgba(51,51,51,<?=iro_opt('theme_darkmode_widget_transparency'); ?>);}
+{background:rgba(51,51,51,<?=iro_opt('theme_darkmode_widget_transparency'); ?>);transition: all 0.6s ease-in-out;}
+
+body.dark .top-social_v2 i
+{color:#ababab;transition: all 0.6s ease-in-out;}
+
+body.dark .top-social i,body.dark .bg-switch
+{color:#ababab;background:rgba(51,51,51,<?=iro_opt('theme_darkmode_widget_transparency'); ?>);transition: all 0.6s ease-in-out;}
 
 body.dark .the-feature.from_left_and_right .info
-{background-color: rgba(51,51,51,<?=iro_opt('theme_darkmode_widget_transparency'); ?>);}
+{background-color: rgba(51,51,51,<?=iro_opt('theme_darkmode_widget_transparency'); ?>);transition: all 0.6s ease-in-out;}
 
 body.dark .yya,
 body.dark input[type=submit] 
-{background-color:rgba(38,38,38,<?=iro_opt('theme_darkmode_widget_transparency'); ?>) !important;}
+{background-color:rgba(38,38,38,<?=iro_opt('theme_darkmode_widget_transparency'); ?>) !important;transition: all 0.6s ease-in-out;}
 
 /*深色模式自定义颜色*/
 body.dark .headertop-down svg path 
@@ -429,7 +432,7 @@ h1.main-title,h1.fes-title{
 font-family:<?=iro_opt('area_title_font'); ?>;
 }
 
-.header-info p, .header-shuo p{
+.header-info p{
 font-family:<?=iro_opt('signature_font'); ?> !important;
 font-size: <?=iro_opt('signature_font_size'); ?>px;
 }
@@ -493,6 +496,9 @@ cursor: url(<?=iro_opt('cursor_work'); ?>), alias;
 /*背景类*/
 .comment-respond textarea {
 background-image: url(<?=iro_opt('comment_area_image'); ?>); 
+background-size: contain;
+background-repeat: no-repeat;
+background-position: right;
 }
 
 .search-form.is-visible{
@@ -512,10 +518,8 @@ background-color: rgba(255, 255, 255,<?=iro_opt('reception_background_transparen
 }
 
 /*首页圆角设置*/
-.header-info,.header-shuo{
+.header-info{
 border-radius: <?=iro_opt('signature_radius'); ?>px;
-grid-row: 1;
-grid-column: 1;
 }
 
 .focusinfo img{
@@ -539,7 +543,7 @@ border-radius: <?=iro_opt('avatar_radius'); ?>px;
     width: 20%;
     height: 10px;
     z-index: 1;
-    background-color: <?=iro_opt('theme_skin_matching'); ?>70;
+    background-color: var(--article-theme-highlight,var(--theme-skin-matching));
     animation: lineWidth 2s <?=iro_opt('page_title_animation_time'); ?>s forwards;
     opacity: 0;
 }
@@ -552,7 +556,7 @@ border-radius: <?=iro_opt('avatar_radius'); ?>px;
     }
     100% {
         width: 20%;
-        opacity: 1;
+        opacity: 0.5;
     }
 }
 <?php endif; ?>
@@ -635,8 +639,7 @@ border-radius: <?=iro_opt('avatar_radius'); ?>px;
 /*首页封面动画*/
 <?php if (iro_opt('cover_animation', 'true')): ?>
 h1.main-title, h1.fes-title,.the-feature.from_left_and_right .info,
-.header-info p,.header-info,.header-shuo,.header-shuo p,
-.focusinfo .header-tou img,.top-social img,.center-text{
+.header-info p,.header-info,.focusinfo .header-tou img,.top-social img,.top-social i,.bg-switch,.center-text{
 	-moz-animation: homepage-load-animation  <?=iro_opt('cover_animation_time'); ?>s;
     -webkit-animation:homepage-load-animation  <?=iro_opt('cover_animation_time'); ?>s;
 	animation: homepage-load-animation  <?=iro_opt('cover_animation_time'); ?>s;
