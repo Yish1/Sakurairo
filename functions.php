@@ -228,48 +228,115 @@ if (!function_exists('akina_setup')) {
 ;
 add_action('after_setup_theme', 'akina_setup');
 
-//说说页面
-function shuoshuo_custom_init()
-{
+function register_shuoshuo_post_type() {
     $labels = array(
-        'name' => __("Ideas", "sakurairo"),
-        'singular_name' => __("Idea", "sakurairo"),
-        'add_new' => __("Publish New Idea", "sakurairo"),
-        'add_new_item' => __("Publish New Idea", "sakurairo"),
-        'edit_item' => __("Edit Idea", "sakurairo"),
-        'new_item' => __("New Idea", "sakurairo"),
-        'view_item' => __("View Idea", "sakurairo"),
-        'search_items' => __("Search Idea", "sakurairo"),
-        'not_found' => __("Not Found Idea", "sakurairo"),
-        'not_found_in_trash' => __("No Idea in the Trash", "sakurairo"),
-        'parent_item_colon' => '',
-        'menu_name' => __("Ideas", "sakurairo")
+        'name'               => _x('Shuoshuo', 'post type general name', 'sakurairo'),
+        'singular_name'      => _x('Shuoshuo', 'post type singular name', 'sakurairo'),
+        'menu_name'          => _x('Shuoshuo', 'admin menu', 'sakurairo'),
+        'name_admin_bar'     => _x('Shuoshuo', 'add new on admin bar', 'sakurairo'),
+        'add_new'            => _x('Add New', 'shuoshuo', 'sakurairo'),
+        'add_new_item'       => __('Add New Shuoshuo', 'sakurairo'),
+        'new_item'           => __('New Shuoshuo', 'sakurairo'),
+        'edit_item'          => __('Edit Shuoshuo', 'sakurairo'),
+        'view_item'          => __('View Shuoshuo', 'sakurairo'),
+        'all_items'          => __('All Shuoshuo', 'sakurairo'),
+        'search_items'       => __('Search Shuoshuo', 'sakurairo'),
+        'parent_item_colon'  => __('Parent Shuoshuo:', 'sakurairo'),
+        'not_found'          => __('No shuoshuo found.', 'sakurairo'),
+        'not_found_in_trash' => __('No shuoshuo found in Trash.', 'sakurairo')
     );
+
     $args = array(
-        'labels' => $labels,
-        'public' => true,
+        'labels'             => $labels,
+        'public'             => true,
         'publicly_queryable' => true,
-        'show_ui' => true,
-        'show_in_menu' => true,
-        'show_in_rest' => true,
-        'query_var' => true,
-        'rewrite' => true,
-        'capability_type' => 'post',
-        'has_archive' => true,
-        'hierarchical' => false,
-        'menu_position' => null,
-        'supports' => array(
-            'title',
-            'editor',
-            'comments',
-            'thumbnail',
-            'author',
-            'custom-fields' // Added support for custom fields
-        )
+        'show_ui'            => true,
+        'show_in_menu'       => true,
+        'show_in_rest'       => true,
+        'query_var'          => true,
+        'rewrite'            => array('slug' => 'shuoshuo'),
+        'capability_type'    => 'post',
+        'has_archive'        => true,
+        'hierarchical'       => false,
+        'menu_position'      => null,
+        'supports'           => array('title', 'editor', 'author', 'thumbnail', 'custom-fields', 'comments'),
+        'taxonomies'         => array('category') 
     );
+
     register_post_type('shuoshuo', $args);
 }
-add_action('init', 'shuoshuo_custom_init');
+add_action('init', 'register_shuoshuo_post_type');
+
+function register_emotion_meta_boxes() {
+    register_meta('post', 'emotion', array(
+        'show_in_rest' => true,
+        'single' => true,
+        'type' => 'string',
+        'auth_callback' => function() {
+            return current_user_can('edit_posts');
+        }
+    ));
+    register_meta('post', 'emotion_color', array(
+        'show_in_rest' => true,
+        'single' => true,
+        'type' => 'string',
+        'auth_callback' => function() {
+            return current_user_can('edit_posts');
+        }
+    ));
+}
+add_action('init', 'register_emotion_meta_boxes');
+
+function add_emotion_meta_box() {
+    add_meta_box(
+        'emotion_meta_box_id',
+        __('Emotion Meta Box', 'sakurairo'),
+        'render_emotion_meta_box',
+        'shuoshuo', // 仅在shuoshuo内容类型中显示
+        'side',
+        'default'
+    );
+}
+add_action('add_meta_boxes', 'add_emotion_meta_box');
+
+function render_emotion_meta_box($post) {
+    $emotion_value = get_post_meta($post->ID, 'emotion', true);
+    $emotion_color_value = get_post_meta($post->ID, 'emotion_color', true);
+    wp_nonce_field('emotion_meta_box_nonce', 'emotion_meta_box_nonce_field');
+    echo '<label for="emotion">' . __('Emotion', 'sakurairo') . '</label>';
+    echo '<input type="text" id="emotion" name="emotion" value="' . esc_attr($emotion_value) . '" />';
+    echo '<br><br>';
+    echo '<label for="emotion_color">' . __('Emotion Color', 'sakurairo') . '</label>';
+    echo '<input type="text" id="emotion_color" name="emotion_color" value="' . esc_attr($emotion_color_value) . '" />';
+    echo '<br><br>';
+    echo '<p>' . __('For the Emotion, please fill in the Unicode value of the Fontawesome icon, and for the Emotion Color, please fill in the RGBA or hexadecimal color.', 'sakurairo') . '</p>';
+}
+
+function save_emotion_meta_box($post_id) {
+    if (!isset($_POST['emotion_meta_box_nonce_field']) || !wp_verify_nonce($_POST['emotion_meta_box_nonce_field'], 'emotion_meta_box_nonce')) {
+        return;
+    }
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+        return;
+    }
+    if (!current_user_can('edit_post', $post_id)) {
+        return;
+    }
+    if (isset($_POST['emotion'])) {
+        update_post_meta($post_id, 'emotion', sanitize_text_field($_POST['emotion']));
+    }
+    if (isset($_POST['emotion_color'])) {
+        update_post_meta($post_id, 'emotion_color', sanitize_text_field($_POST['emotion_color']));
+    }
+}
+add_action('save_post', 'save_emotion_meta_box');
+
+function include_shuoshuo_in_main_query($query) {
+    if ($query->is_main_query() && !is_admin() && (is_home() || is_archive())) {
+        $query->set('post_type', array('post', 'shuoshuo'));
+    }
+}
+add_action('pre_get_posts', 'include_shuoshuo_in_main_query');
 
 function admin_lettering()
 {
@@ -1990,17 +2057,23 @@ function change_avatar($avatar)
             return '<img src="' . $matches[1] . '" class="lazyload avatar avatar-24 photo" alt="😀" width="24" height="24" onerror="imgError(this,1)">';
         }
         
-        // 生成一个合适长度的初始化向量
-        $iv_length = openssl_cipher_iv_length('aes-128-cbc');
-        $iv = openssl_random_pseudo_bytes($iv_length);
-        
-        // 加密数据
-        $encrypted = openssl_encrypt($qq_number, 'aes-128-cbc', $sakura_privkey, 0, $iv);
-        
-        // 将初始化向量和加密数据一起编码
-        $encrypted = urlencode(base64_encode($iv . $encrypted));
-        
-        return '<img src="' . rest_url("sakura/v1/qqinfo/avatar") . '?qq=' . $encrypted . '" class="lazyload avatar avatar-24 photo" alt="😀" width="24" height="24" onerror="imgError(this,1)">';
+        // Ensure $sakura_privkey is defined and not null
+        if (isset($sakura_privkey) && !is_null($sakura_privkey)) {
+            // 生成一个合适长度的初始化向量
+            $iv_length = openssl_cipher_iv_length('aes-128-cbc');
+            $iv = openssl_random_pseudo_bytes($iv_length);
+            
+            // 加密数据
+            $encrypted = openssl_encrypt($qq_number, 'aes-128-cbc', $sakura_privkey, 0, $iv);
+            
+            // 将初始化向量和加密数据一起编码
+            $encrypted = urlencode(base64_encode($iv . $encrypted));
+            
+            return '<img src="' . rest_url("sakura/v1/qqinfo/avatar") . '?qq=' . $encrypted . '" class="lazyload avatar avatar-24 photo" alt="😀" width="24" height="24" onerror="imgError(this,1)">';
+        } else {
+            // Handle the case where $sakura_privkey is not set or is null
+            return '<img src="default_avatar_url" class="lazyload avatar avatar-24 photo" alt="😀" width="24" height="24" onerror="imgError(this,1)">';
+        }
     }
     return $avatar;
 }
@@ -2608,7 +2681,7 @@ if (iro_opt('show_location_in_manage')) {
 function exclude_pages_and_categories_from_search($query) {
     if (!is_admin() && $query->is_search) {
         // Exclude pages
-        $query->set('post_type', array('post', 'idea', 'link')); // Include other post types but exclude 'page'
+        $query->set('post_type', array('post', 'shuoshuo', 'link')); // Include other post types but exclude 'page'
 
         // Exclude categories
         $tax_query = array(
