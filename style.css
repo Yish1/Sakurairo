@@ -9447,7 +9447,7 @@ body:not(.heimu_toggle_on) .new:hover .heimu.off {
     font-size: 15px;
     line-height: 25px;
     overflow: auto;
-    white-space: nowrap;
+    white-space: wrap;
   }
 
   .header-info p {
