@@ -7147,13 +7147,13 @@ body.dark::-webkit-scrollbar-track {
   mix-blend-mode: lighten;
 }
 
-.glitch:hover:before {
-  text-shadow: 4px 0 #ff3f1a;
+.glitch:before {
+  text-shadow: 4px 0 #f37ea1;
   animation: glitch-loop-1 .8s infinite ease-in-out alternate-reverse;
 }
 
-.glitch:hover:after {
-  text-shadow: -5px 0 #00a7e0;
+.glitch:after {
+  text-shadow: -5px 0 #5cbfe5;
   animation: glitch-loop-2 .8s infinite ease-in-out alternate-reverse;
 }
 
@@ -9446,8 +9446,7 @@ body:not(.heimu_toggle_on) .new:hover .heimu.off {
     min-width: 50%;
     font-size: 15px;
     line-height: 25px;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    overflow: auto;
     white-space: nowrap;
   }
 
