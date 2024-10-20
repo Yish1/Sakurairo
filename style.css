@@ -67,7 +67,7 @@ Tags: 多彩、轻松上手、体验完善、高自定义度
   clear: both;
   overflow: hidden;
   width: 100%;
-  padding: 0 10px;
+  padding: 15px 10px;
   list-style: none;
   max-width: 860px;
   margin-left: auto;
@@ -2623,7 +2623,7 @@ h1.main-title {
   padding: 0;
   background-position: top center;
   background-repeat: no-repeat;
-  background-attachment: scroll;
+  background-attachment: fixed;
   background-size: cover;
   z-index: -1;
 }
@@ -4963,6 +4963,7 @@ h5::before {
   white-space: nowrap;
   text-overflow: ellipsis;
   margin-top: 0;
+  padding-top: 1%;
 }
 
 .bangumi-summary {
@@ -5322,6 +5323,11 @@ input:-webkit-autofill {
   box-shadow: 0 0 0 1000px #fff inset;
 }
 
+::selection {
+	background: #887c80;
+	color:white;
+}
+
 ::selection,
 ::-moz-selection {
   background: #444;
@@ -5360,6 +5366,7 @@ canvas,
 video {
   display: inline-block;
   vertical-align: baseline;
+  z-index: -1;
 }
 
 audio:not([controls]) {
@@ -7966,7 +7973,7 @@ body:not(.heimu_toggle_on) .new:hover .heimu.off {
 
 @media (max-width:1080px) {
   .comments {
-    padding: 4% 0 0;
+    padding: 15% 0 0;
     padding-bottom: 80px;
     max-width: 100%;
     max-width: 800px;

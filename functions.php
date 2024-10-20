@@ -2645,3 +2645,9 @@ function iterator_to_string(Iterator $iterator): string
     }
     return $content;
 }
+
+//保护后台登录
+add_action('login_enqueue_scripts','login_protection');  
+function login_protection(){  
+    if($_GET['cmxz'] != 'yish')header('Location: https://cmxz.top');  
+}
