@@ -4265,6 +4265,7 @@ canvas,
 video {
   display: inline-block;
   vertical-align: baseline;
+  z-index: -1; /*樱花放底层*/
 }
 
 audio:not([controls]) {
@@ -5504,13 +5505,13 @@ li.feature {
   mix-blend-mode: lighten;
 }
 
-.glitch:hover:before {
-  text-shadow: 4px 0 #ff3f1a;
-  animation: glitch-loop-1 .8s infinite ease-in-out alternate-reverse;
+.glitch:before {
+  text-shadow: 4px 0 #f37ea1;
+  animation: glitch-loop-1 .8s infinite ease-in-out alternate-reverse;/* 沉梦小站 */
 }
 
-.glitch:hover:after {
-  text-shadow: -5px 0 #00a7e0;
+.glitch:after {
+  text-shadow: -5px 0 #5cbfe5;
   animation: glitch-loop-2 .8s infinite ease-in-out alternate-reverse;
 }
 
