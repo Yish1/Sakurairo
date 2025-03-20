@@ -613,6 +613,8 @@ function update_customize_to_iro_options() { //从key映射表中重组并保存
             } else {
                 $theme_mod_options[ $iro_key ] = $preview_value;
             }
+            // 移除已保存的值，确保下次还能同步
+            remove_theme_mod( $setting_id );
         }
     }
 	$theme_mod_options = array_merge($iro_options,$theme_mod_options);
@@ -2720,6 +2722,13 @@ function register_shortcodes() {
                 $response = wp_remote_get($url);
                 set_transient('steam_stat_'.$steamid, $response, 180);
             }
+            
+            // 添加错误检查，防止WP_Error被当作数组使用
+            if (is_wp_error($response)) {
+                $output .= '<div class="steam-error">API错误: ' . $response->get_error_message() . '</div>';
+                continue;
+            }
+            
             $data = json_decode($response["body"], true);
             $player = $data['response']['players'][0] ?? [];
             
@@ -3534,7 +3543,7 @@ function sakurairo_deactivate_link_check_cron() {
 }
 register_deactivation_hook(__FILE__, 'sakurairo_deactivate_link_check_cron');
 
-require_once(get_theme_file_path() . '/inc/link-status.php'); // 友情链接状态检测
+require_once(get_template_directory() . '/inc/link-status.php'); // 友情链接状态检测
 
 /**
  * 返回是否应当显示文章标题。

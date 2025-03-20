@@ -1020,7 +1020,7 @@ $prefix = 'iro_options';
         'desc'   => __('Set the background image of your search area. Leave this option blank to display a white background','sakurairo_csf'),
         'dependency' => array( 'nav_menu_search', '==', 'true', '', 'true' ),
         'library'      => 'image',
-        'default'     => $vision_resource_basepath . 'basic/iloli.gif'
+        'default' => ''
       ),
 
       array(
@@ -1670,6 +1670,15 @@ $prefix = 'iro_options';
         'title' => __('Cover and Frontend Background Integration','sakurairo_csf'),
         'label' => __('When enabled, the background of the cover will be set to transparent, while the frontend background will use the cover\'s random image API','sakurairo_csf'),
         'dependency' => array( 'cover_switch', '==', 'true', '', 'true' ),
+        'default' => false
+      ),
+
+      array(
+        'id' => 'post_cover_as_bg',
+        'type' => 'switcher',
+        'title' => __('Post Cover As Background','sakurairo_csf'),
+        'label' => __('Use post feature image as background in post pages','sakurairo_csf'),
+        'dependency' => array( 'site_bg_as_cover', '==', 'true', '', 'true' ),
         'default' => false
       ),
 
@@ -3093,6 +3102,7 @@ $prefix = 'iro_options';
       array(
         'id' => 'comment_submit_button_text',
         'type' => 'text',
+        'title' => __('Custom Submit Button Content','sakurairo_csf'),
         'title' => __('Submit✈️','sakurairo_csf')
       ),
 
