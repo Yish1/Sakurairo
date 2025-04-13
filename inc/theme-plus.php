@@ -168,7 +168,7 @@ function comment_captcha(){
   if (!isset($_POST['timestamp']) || !isset($_POST['id']) || !preg_match('/^[\w$.\/]+$/', $_POST['id']) || !ctype_digit($_POST['timestamp'])) {
       return siren_ajax_comment_err(__('Have you modified the captcha code data? Or refresh the captcha and try again?','sakurairo'));
   }
-  include_once('inc/classes/Captcha.php');
+  include_once( get_template_directory() . '/inc/classes/Captcha.php');
   $img = new Sakura\API\Captcha;
   $check = $img->check_captcha($_POST['captcha'], $_POST['timestamp'], $_POST['id']);
   if ($check['code'] == 5) {
@@ -817,6 +817,9 @@ function the_reward(){
   $link2  = $reward['link2']  ?? '';
 
   $button_html = '<div class="reward-open"><a href="'.$link.'" class="reward-button" target="_blank"><i class="fa-solid fa-piggy-bank fa-sm"></i></a>';
+  if ($link == '') {
+    $button_html = '<div class="reward-open"><i class="fa-solid fa-piggy-bank fa-sm"></i>';
+  }
 
   $img_html1 = '';
   if($image1){
