@@ -44,12 +44,17 @@ $prefix = 'iro_options';
 
       array(
         'type'    => 'heading',
-        'content' => __('News+','sakurairo_csf'),
+        'content' => __('Thank you to everyone who supports us!','sakurairo_csf'),
       ),
 
       array(
         'type'    => 'content',
-        'content' => __('<img src="https://news.maho.cc/sakurairo.php"  alt="News_Plus" width="100%" height="100%" />','sakurairo_csf'),
+        'content' => __('<a href="https://afdian.com/a/mamori"><img alt="afdian" height="50" src="https://s.nmxc.ltd/sakurairo_vision/@3.0/readme/afdian.webp"></a><a href="https://liberapay.com/furina/donate"><img alt="liberapay" height="50" src="https://s.nmxc.ltd/sakurairo_vision/@3.0/readme/liberapay.webp"></a><a href="https://app.unifans.io/c/somekawahitomi"><img alt="unifans" height="50" src="https://s.nmxc.ltd/sakurairo_vision/@3.0/readme/unifans.webp"></a>','sakurairo_csf'),
+      ),
+
+      array(
+        'type'    => 'content',
+        'content' => __('<img src="https://fuukei-api.nyat.icu/api/sponsors"  alt="Sponsor" width="100%" height="100%" />','sakurairo_csf'),
       ),
 
     )
@@ -1649,7 +1654,7 @@ $prefix = 'iro_options';
                               array( 'cover_switch', '==', 'true', '', 'true' ),
                               array( 'random_graphs_options', '!=', 'local', '', 'true' ),
                         ),
-        'default' => 'https://api.maho.cc/random-img/pc.php',
+        'default' => 'https://api.fuukei.org/random-img/default/pc.php',
         'sanitize' => false,
         'validate' => 'csf_validate_url',
       ),
@@ -1664,7 +1669,7 @@ $prefix = 'iro_options';
                               array( 'random_graphs_options', '!=', 'local', '', 'true' ),
                         ),
         'desc' => __('Fill in an URL','sakurairo_csf'),
-        'default' => 'https://api.maho.cc/random-img/mobile.php',
+        'default' => 'https://api.fuukei.org/random-img/default/mobile.php',
         'sanitize' => false,
         'validate' => 'csf_validate_url',
       ),
@@ -4167,22 +4172,12 @@ $prefix = 'iro_options';
 
       array(
         'type' => 'subheading',
-        'content' => __('Theme Sponsors','sakurairo_csf'),
-      ),
-
-      array(
-        'type'    => 'content',
-        'content' => __('<img src="https://news.maho.cc/sponsors.php"  alt="sponsors" width="65%" height="65%" />','sakurairo_csf'),
-      ),
-
-      array(
-        'type' => 'subheading',
         'content' => __('Theme Contributors','sakurairo_csf'),
       ),
 
       array(
         'type'    => 'content',
-        'content' => __('<img src="https://kiseki.blog/info/contributors.php?action=view" alt="Theme Contributors" width="100%" height="100%" />','sakurairo_csf'),
+        'content' => __('<img src="https://fuukei-api.nyat.icu/api/contributors" alt="Theme Contributors" width="100%" height="100%" />','sakurairo_csf'),
       ),
 
       array(
@@ -4224,7 +4219,8 @@ $prefix = 'iro_options';
       array(
         'type'    => 'content',
         'content' => __('<p>Options Framework Relies on the Codestar Open Source <a href="https://github.com/Codestar/codestar-framework">Codestar Framework</a> Project</p>
-        <p>Update Function Relies on YahnisElsts Open Source <a href="https://github.com/YahnisElsts/plugin-update-checker">Plugin Update Checker</a> Project</p>','sakurairo_csf'),
+        <p>Update Function Relies on YahnisElsts Open Source <a href="https://github.com/YahnisElsts/plugin-update-checker">Plugin Update Checker</a> Project</p>
+        <p>Visual Editor Related Functions Relies on Themeum Open Source <a href="https://github.com/themeum/kirki">Kirki</a> Project</p>','sakurairo_csf'),
       ),
 
       array(

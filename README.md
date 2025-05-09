@@ -4,7 +4,7 @@
 
 <h1 align="left">Theme Sakurairo </h1>
 
-> 一个多彩，轻松上手，体验完善，具有强大自定义功能的WordPress主题
+> 一款具有 AI 辅助阅读功能的 WordPress 主题，多彩、友好、功能全面、体验完善。
 
 [![GitHub release](https://img.shields.io/github/v/release/mirai-mamori/Sakurairo.svg?style=for-the-badge&logo=appveyor)](https://github.com/mirai-mamori/Sakurairo/releases/latest)[![GitHub Release Date](https://img.shields.io/github/release-date/mirai-mamori/Sakurairo?style=for-the-badge&logo=appveyor)](https://github.com/mirai-mamori/Sakurairo/releases)![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/mirai-mamori/Sakurairo?style=for-the-badge&logo=appveyor)[![jsDelivr hits (GitHub)](https://img.shields.io/jsdelivr/gh/hm/Fuukei/Public_Repository?color=red&logo=jsdelivr&logoColor=red&style=for-the-badge)](https://www.jsdelivr.com/package/gh/mirai-mamori/sakurairo)
 
@@ -12,7 +12,7 @@
 
 ## 版本简介：
 
-[![image](https://s.nmxc.ltd/sakurairo_vision/@3.0/readme/cn.png)](https://docs.fuukei.org//)
+[![image](https://s.nmxc.ltd/sakurairo_vision/@3.0/readme/cn.webp)](https://docs.fuukei.org/)
 
 ## 下载及使用相关：
 
@@ -29,17 +29,17 @@
 
 ## 赞助商：
 
-<a href="https://www.upyun.com/"><img src="https://s.nmxc.ltd/sakurairo_vision/@3.0/readme/upyun2024.webp" alt="UPYUN" width="400"></a>  
+<a href="https://www2.waf.pro/"><img src="https://s.nmxc.ltd/sakurairo_vision/@3.0/readme/wafpro.webp" alt="warpro" width="200"></a>  
 
-<a href="https://www.houdeyun.cn/"><img src="https://s.nmxc.ltd/sakurairo_vision/@3.0/readme/houdeyun2024.webp" alt="HOUDEYUN" width="400"></a>
+## 感谢每一位支持我们的你：
 
-## 支持我们：
+<a href="https://afdian.com/a/mamori"><img alt="afdian" height="50" src="https://s.nmxc.ltd/sakurairo_vision/@3.0/readme/afdian.webp"></a>
 
-[![image](https://s.nmxc.ltd/sakurairo_vision/@3.0/readme/cn-ver2.7info.png)](https://ifdian.net/@mamori)
+[![image](https://fuukei-api.nyat.icu/api/sponsors)](https://afdian.com/a/mamori)
 
 ## 主题贡献：
 
-<a href="https://github.com/mirai-mamori/Sakurairo/graphs/contributors"><img src="https://kiseki.blog/info/contributors.php?action=view" alt="contributors" height="100%"></a>
+<a href="https://github.com/mirai-mamori/Sakurairo/graphs/contributors"><img src="https://fuukei-api.nyat.icu/api/contributors" alt="contributors" height="100%" width="100%"></a>
 
 ## 主题说明：
 
@@ -51,7 +51,7 @@
 
 ### 引用相关：
 
-- 本主题社交网络图标中，流畅设计图标引用于由Paradox设计的 Fluent 图标包
+- 本主题社交网络图标中，流畅设计图标引用于由 Paradox 设计的 Fluent 图标包
 
 - 本主题社交网络图标中，沐氢图标引用于由缄默设计的沐氢图标包
 
@@ -60,6 +60,8 @@
 - 本主题使用 Codestar [Codestar Framework](https://github.com/Codestar/codestar-framework) 作为设置框架
 
 - 本主题使用 YahnisElsts [Plugin Update Checker](https://github.com/YahnisElsts/plugin-update-checker) 以提供主题更新功能
+
+- 本主题使用 Themeum [Kirki](https://github.com/themeum/kirki) 以提供可视化编辑器相关功能
 
 ## 希望你喜欢！
 

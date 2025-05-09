@@ -4,7 +4,7 @@
 
 <h1 align="left">Theme Sakurairo </h1>
 
-> 一個多彩，輕鬆上手，體驗完善，具有強大的自定義功能的WordPress主題
+> 一款具有 AI 輔助閱讀功能的 WordPress 主題，多彩、友善、功能全面、體驗完善。
 
 [![GitHub release](https://img.shields.io/github/v/release/mirai-mamori/Sakurairo.svg?style=for-the-badge&logo=appveyor)](https://github.com/mirai-mamori/Sakurairo/releases/latest)[![GitHub Release Date](https://img.shields.io/github/release-date/mirai-mamori/Sakurairo?style=for-the-badge&logo=appveyor)](https://github.com/mirai-mamori/Sakurairo/releases)![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/mirai-mamori/Sakurairo?style=for-the-badge&logo=appveyor)[![jsDelivr hits (GitHub)](https://img.shields.io/jsdelivr/gh/hm/Fuukei/Public_Repository?color=red&logo=jsdelivr&logoColor=red&style=for-the-badge)](https://www.jsdelivr.com/package/gh/mirai-mamori/sakurairo)
 
@@ -12,7 +12,7 @@
 
 ## 版本宣傳：
 
-[![image](https://s.nmxc.ltd/sakurairo_vision/@3.0/readme/tw.png)](https://docs.fuukei.org//)
+[![image](https://s.nmxc.ltd/sakurairo_vision/@3.0/readme/tw.webp)](https://docs.fuukei.org/)
 
 ## 使用相關：
 
@@ -25,13 +25,15 @@
 - 在確認你遇到的現象確實是一個Bug後，請在 [Issues](https://github.com/mirai-mamori/Sakurairo/issues/new/choose) 提交問題，並為該問題可以的描述清楚，
 按照提供的問題模板進行填寫，謝謝配合。
 
-## 贊助商：
+## 感謝所有支持我們的你：
 
-<a href="https://www.upyun.com/"><img src="https://s.nmxc.ltd/sakurairo_vision/@3.0/options/upyun_logo.webp" alt="UPYUN" width="200"></a>
+<a href="https://liberapay.com/furina/donate"><img alt="liberapay" height="50" src="https://s.nmxc.ltd/sakurairo_vision/@3.0/readme/liberapay.webp"></a><a href="https://app.unifans.io/c/somekawahitomi"><img alt="unifans" height="50" src="https://s.nmxc.ltd/sakurairo_vision/@3.0/readme/unifans.webp"></a>
+
+[![image](https://fuukei-api.nyat.icu/api/sponsors)](https://afdian.com/a/mamori)
 
 ## 主題貢獻：
 
-<a href="https://github.com/mirai-mamori/Sakurairo/graphs/contributors"><img src="https://kiseki.blog/info/contributors.php?action=view" alt="contributors" height="100%"></a>
+<a href="https://github.com/mirai-mamori/Sakurairo/graphs/contributors"><img src="https://fuukei-api.nyat.icu/api/contributors" alt="contributors" height="100%" width="100%"></a>
 
 ## 主題說明：
 
@@ -53,9 +55,9 @@
 
 - 本主題使用 YahnisElsts [Plugin Update Checker](https://github.com/YahnisElsts/plugin-update-checker) 以提供主題更新功能
 
-## 希望你喜歡！
+- 本主题使用 Themeum [Kirki](https://github.com/themeum/kirki) 以提供可視化編輯器相關功能
 
-[![image](https://s.nmxc.ltd/sakurairo_vision/@3.0/readme/tw-ver2.7info.png)](https://docs.fuukei.org/)
+## 希望你喜歡！
 
 - Star 趨勢  [![GitHub stars](https://img.shields.io/github/stars/mirai-mamori/Sakurairo?logo=github&style=social)](https://github.com/mirai-mamori/Sakurairo/stargazers)
 
